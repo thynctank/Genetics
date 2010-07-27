@@ -18,7 +18,7 @@ Creating a new class using Genetics is as simple as calling Genetics.originate()
 
 Inheriting
 ==========
-Genetics allows you to inherit new pseudo-class objects from any class created by Genetics, or from any simple constructor/prototype combo. Call Genetics.inherit(), passing in the parent pseudo-class object as the first param, the new class's name as a string, and a class definition object as you would with Genetics.originate(). Any methods already defined on the parent class will be overridden, but parent methods may be accessed by calling this._super() from within the overridden method. This applies to init/constructors as well.
+Genetics allows you to inherit new pseudo-class objects from any class created by Genetics, or from any simple constructor/prototype combo. Call Genetics.inherit(), passing in the parent pseudo-class object as the first param, the new class's name as a string, and a class definition object as you would with Genetics.originate(). Any methods already defined on the parent class will be overridden, but parent methods may be accessed by calling this.\_super() from within the overridden method. This applies to init/constructors as well.
 
 *Example*:
 
@@ -40,7 +40,7 @@ Genetics allows you to inherit new pseudo-class objects from any class created b
 
 Mutating functions
 ==================
-Genetics enables you to perform complex "currying" of JS functions, performing transformations on the arguments which are passed in to the original function, as well as applying similar transformations on the result returned by the original function. To mutate a function, pass in the original function, and an options object. This options object may contain before and after members. The *before* function takes the arguments passed in to the final, mutated function, and should return an arguments object to pass along to the original function. It should therefore ensure that the arguments passed along match the expected arguments for that original function. The *after* function accepts the arguments returned by the *before* (if a *before* was used, else it takes the unmodified arguments) and is bound to whatever the original function is bound to, allowing it access to the temporary this._result variable, which contains the intermediary result passed back by the original function. The *after* is free to modify this._result, which is then returned by the final mutated function.
+Genetics enables you to perform complex "currying" of JS functions, performing transformations on the arguments which are passed in to the original function, as well as applying similar transformations on the result returned by the original function. To mutate a function, pass in the original function, and an options object. This options object may contain before and after members. The *before* function takes the arguments passed in to the final, mutated function, and should return an arguments object to pass along to the original function. It should therefore ensure that the arguments passed along match the expected arguments for that original function. The *after* function accepts the arguments returned by the *before* (if a *before* was used, else it takes the unmodified arguments) and is bound to whatever the original function is bound to, allowing it access to the temporary this.\_result variable, which contains the intermediary result passed back by the original function. The *after* is free to modify this.\_result, which is then returned by the final mutated function.
 
 *Example*:
 
