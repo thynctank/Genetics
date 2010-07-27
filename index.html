@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+  </head>
+  <body>
+    <script src="genetics.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      function Person(name) {
+        this.name = name;
+      }
+      Person.prototype.sayHello = function() {
+        console.log("Hi, my name is " + this.name);
+      };
+      
+      Swimmer = {
+        swim: function() {
+          console.log("I'm swimming!");
+        }
+      };
+      
+      Flyer = {
+        fly: function() {
+          console.log("I'm flying");
+        }
+      };
+      
+      Genetics.inherit(Person, "Superhero", {
+        init: function(name) {
+          this._super("SUPER " + name);
+        },
+        save: function() {
+          console.log("I just saved someone!");
+        }
+      });
+      
+      Genetics.splice(Superhero, [Swimmer, Flyer]);
+      
+      Genetics.originate("Alien", {
+        init: function(name) {
+          var newName = "";
+          for(i = name.length - 1; i >= 0; i--) {
+            newName += name[i];
+          }
+          this.name = newName;
+          this.sayHello = function() {
+            console.log("Mishnok bree bok " + this.name);
+          };
+        },
+        claw: function() {
+          console.log("I'm clawing at something");
+        }
+      });
+      
+      o = {name: "Singleton Guy"};
+      
+      Genetics.splice(o, [Alien, Superhero]);
+    </script>
+  </body>
+</html>

@@ -64,6 +64,9 @@ Genetics = {
       if(typeof genes == "function")
         genes = genes.prototype;
       for(gene in genes) {
+        if(!genes[gene])
+          continue;
+        
         var oldGene = base[gene];
         if(typeof genes[gene] == "function" && typeof oldGene == "function") {
           base[gene] = (function() {
