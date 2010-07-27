@@ -1,3 +1,5 @@
+// TODO: Add tests for all functions, all variations
+
 Genetics = {
   top: window,
   // builds a descendant object

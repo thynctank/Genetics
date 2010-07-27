@@ -79,3 +79,7 @@ Here's where Genetics gets interesting while remaining awesomely simple. You can
     Genetics.splice(o, [Shooter, Flyer]);
     o.shoot(); //"BANG!"
     o.fly(); //"I can fly!"
+    
+Using Outside the Browser
+=========================
+Genetics assumes the top-level object is window. If this is not the case, please set Genetics.top to reference whatever the top-level object *is* in your environment. After this Genetics should behave normally.
