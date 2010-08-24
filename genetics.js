@@ -1,41 +1,72 @@
 // TODO: Add tests for all functions, all variations
 
-Genetics = {
+var Genetics = function(top) {
+  if(top)
+    this.top = top;
+};
+
+Genetics.prototype = {
   top: window,
   // builds a descendant object
   // overridden functions get wrapped with this._super prop pointing to base func
   // inherits prototype chain
   originate: function(name, def) {
-    var top = Genetics.top;
-    top[name] = def.init;
-    delete def.init;
+    var top = this.top,
+        cls;
+    top[name] = function() {
+      if(Genetics.skipInit)
+        return;
+      
+      def.init.apply(this, arguments);
+    };
+    
+    cls = top[name];
     top[name].prototype = def;
+    top[name].prototype.className = name;
   },
   inherit: function(parent, name, def) {
-    var top = Genetics.top,
+    var top = this.top,
         proto,
         prop,
-        init;
+        init,
+        constructor;
+        
+    def.parentClass = parent;
+
     if(!def.init)
       init = function() {
+        if(Genetics.skipInit)
+          return;
+          
         parent.apply(this, arguments);
       };
     else {
       var oldInit = def.init;
       init = function() {
+        if(Genetics.skipInit)
+          return;
+
         var tmp = this._super,
-            self = this;
-        this._super = function(){parent.apply(self, arguments);};
-        var ret = oldInit.apply(this, arguments);
+            self = this,
+            parentMethod = (parent.prototype.init ? parent.prototype.init : parent);
+        
+        this._super = function(){parentMethod.apply(self, arguments);};
+        oldInit.apply(this, arguments);
         this._super = tmp;
       };
+      delete def.init;
     }
-    Genetics.originate(name, {init: init});
-    delete def.init;
-    top[name].prototype = new parent();
-    proto = top[name].prototype;
+
+    this.originate(name, {init: init});
+    
+    constructor = top[name];
+    Genetics.skipInit = true;
+    constructor.prototype = new parent();
+    delete Genetics.skipInit;
+
+    proto = constructor.prototype;
     for(prop in def) {
-      proto[prop] = (typeof def[prop] == "function" && typeof parent.prototype[prop] == "function") ?
+      proto[prop] = (prop != "init" && typeof def[prop] == "function" && typeof parent.prototype[prop] == "function") ?
         (function(name, func) {
           return function() {
             var tmp = this._super;
@@ -101,3 +132,8 @@ Genetics = {
     };
   }
 };
+
+var gp = Genetics.prototype;
+gp.create = gp.originate;
+
+// TODO test this shiz!

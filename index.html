@@ -26,7 +26,9 @@
         }
       };
       
-      Genetics.inherit(Person, "Superhero", {
+      var g = new Genetics();
+      
+      g.inherit(Person, "Superhero", {
         init: function(name) {
           this._super("SUPER " + name);
         },
@@ -35,9 +37,9 @@
         }
       });
       
-      Genetics.splice(Superhero, [Swimmer, Flyer]);
+      g.splice(Superhero, [Swimmer, Flyer]);
       
-      Genetics.originate("Alien", {
+      g.originate("Alien", {
         init: function(name) {
           var newName = "";
           for(i = name.length - 1; i >= 0; i--) {
@@ -55,7 +57,7 @@
       
       o = {name: "Singleton Guy"};
       
-      Genetics.splice(o, [Alien, Superhero]);
+      g.splice(o, [Alien, Superhero]);
     </script>
   </body>
 </html>

@@ -4,7 +4,8 @@ Creating a new class using Genetics is as simple as calling Genetics.originate()
 
 *Example*:
 
-    Genetics.originate("Box", {
+    var g = new Genetics();
+    g.originate("Box", {
       init: function(label) {
         this.label = label;
       },
@@ -22,7 +23,8 @@ Genetics allows you to inherit new pseudo-class objects from any class created b
 
 *Example*:
 
-    Genetics.inherit(Box, "SecureBox", {
+    var g = new Genetics();
+    g.inherit(Box, "SecureBox", {
       init: function(label) {
         var secretLabel = label;
         this.getLabel = function(pass) {
@@ -76,7 +78,8 @@ Here's where Genetics gets interesting while remaining awesomely simple. You can
       }
     };
     
-    Genetics.splice(o, [Shooter, Flyer]);
+    var g = new Genetics();
+    g.splice(o, [Shooter, Flyer]);
     o.shoot(); //"BANG!"
     o.fly(); //"I can fly!"
     
